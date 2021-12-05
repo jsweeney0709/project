@@ -18,8 +18,8 @@ def mydiff(t, X, P):
     return f
 
 # ODE solver parameters
-stoptime = 1000
-numpoints = 2000
+stoptime = 5000
+numpoints = 700
 
 
 X0 = [100, -1, np.pi]
@@ -121,3 +121,7 @@ interpol = np.interp(leval,plotListX,plotListY)
 plt.plot(leval,interpol)
 plt.plot(plotListX,plotListY)
 plt.show()
+
+print(len(plotListX))
+print(len(plotListY))
+print(newbiggest)

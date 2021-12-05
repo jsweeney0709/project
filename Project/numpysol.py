@@ -18,15 +18,15 @@ def mydiff(t, X, P):
     return f
 
 # ODE solver parameters
-stoptime = 1000
-numpoints = 2000
+stoptime = 200
+numpoints = 400
 
 # Form time basis
 t = np.linspace(0,stoptime,numpoints)
 
 # Initial conditions
 X0 = [100, -1, np.pi]
-alpha=0.21
+alpha=0.5
 L=(X0[0]*X0[1]*np.cos(X0[2])*np.tan(alpha)-X0[0]*X0[1]*np.sin(X0[2]))/(np.cos(X0[2])+np.sin(X0[2])*np.tan(alpha))
 P = [4, L]
 
@@ -87,12 +87,12 @@ def findy(i):
 
 
 # Find vector from origin
+x1=findx(0)
+y1=findy(0)
+x2=findx(-1)
+y2=findy(-1)
+m= (y2-y1)/(x2-x1)
 def g(x):
-    x1=findx(0)
-    y1=findy(0)
-    x2=findx(-1)
-    y2=findy(-1)
-    m= (y2-y1)/(x2-x1)
     return m*x+y1-m*x1
 
 #xlist=[findx(0)+((findx(-1)-findx(0))*i/numpoints) for i in range(numpoints)]
@@ -106,6 +106,13 @@ plt.plot(xlist,[g(x) for x in xlist], linestyle='dotted')
 disk1=plt.Circle((0, 0), 2*P[0], color="k", fill=True)
 ax.add_artist(disk1)
 
+# circle for angle
+theta = np.linspace(0, 2*np.pi, 100)
+r = 90.0
+plt.plot([r*np.cos(alpha*theta/1000) + findx(0) for theta in range(1001)],[r*np.sin(alpha*theta/1000) for theta in range(1001)])
+plt.text(-40, 0, r"$\alpha^{'}$", fontsize=12)
+plt.plot([(r/1.2)*np.cos(findAngle(a[0]*np.cos(b[0]),a[0]*np.sin(b[0]),a[-1]*np.cos(b[-1]),a[-1]*np.sin(b[-1]))*theta/1000) + findx(0) for theta in range(1001)],[(r/1.2)*np.sin(findAngle(a[0]*np.cos(b[0]),a[0]*np.sin(b[0]),a[-1]*np.cos(b[-1]),a[-1]*np.sin(b[-1]))*theta/1000) for theta in range(1001)])
+plt.text(-30, 25, r"$\alpha$", fontsize=12)
 # Show
 plt.show()
-#print(findAngle(a[0]*np.cos(b[0]),a[0]*np.sin(b[0]),xlist[-1],yval[-1]),findAngle(a[0]*np.cos(b[0]),a[0]*np.sin(b[0]),a[-1]*np.cos(b[-1]),a[-1]*np.sin(b[-1])))
+print(findAngle(a[0]*np.cos(b[0]),a[0]*np.sin(b[0]),xlist[-1],yval[-1]),findAngle(a[0]*np.cos(b[0]),a[0]*np.sin(b[0]),a[-1]*np.cos(b[-1]),a[-1]*np.sin(b[-1])))

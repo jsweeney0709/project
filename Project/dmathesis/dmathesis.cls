@@ -159,7 +159,7 @@
 \geometry{a4paper,
 %Header spacing included in top margin, so top must be at least 15mm
   includehead,
-  top=15mm,
+  top=10mm,
   headheight=1.3em,
 %Footer spacing not included, so (bottom - footskip) must be at least 15mm
 %  If no footers are used, then bottom could be set to 15mm if wished
@@ -169,9 +169,10 @@
   footnotesep=5mm,
 %(Inner + bindingoffset) should be at least 40mm
 %outer should be at least 15mm
-  inner=30mm,
+  inner=20mm,
   outer=20mm,
-  bindingoffset=10mm,
+%include for print
+  %bindingoffset=10mm,
 %Marginpar not included in spacing, so nothing should be included in the
 %  margins in the final copy
   marginparwidth=25mm,
@@ -592,6 +593,36 @@
   \fi
   \ifx#1\@durham@dma@intoc
     \addcontentsline{toc}{chapter}{Introduction to General Relativity}
+  \fi
+}{
+  \clearpage
+}
+
+\newenvironment{chapter2}{\begin{chapter2*}[\@durham@dma@intoc]}{\end{chapter2*}}
+\newenvironment{chapter2*}[1][\@empty]{
+  \chapterlike*{Methods for solving geodesic equations numerically}
+  \if@twoside
+    \markboth{Methods for solving geodesic equations numerically}{Methods for solving geodesic equations numerically}
+  \else
+    \markright{Methods for solving geodesic equations numerically}
+  \fi
+  \ifx#1\@durham@dma@intoc
+    \addcontentsline{toc}{chapter2}{Methods for solving geodesic equations numerically}
+  \fi
+}{
+  \clearpage
+}
+
+\newenvironment{chapter3}{\begin{chapter3*}[\@durham@dma@intoc]}{\end{chapter3*}}
+\newenvironment{chapter3*}[1][\@empty]{
+  \chapterlike*{Moving towards imaging a black hole}
+  \if@twoside
+    \markboth{Moving towards imaging a black hole}
+  \else
+    \markright{Moving towards imaging a black hole}
+  \fi
+  \ifx#1\@durham@dma@intoc
+    \addcontentsline{toc}{chapter3}{Moving towards imaging a black hole}
   \fi
 }{
   \clearpage

@@ -126,9 +126,6 @@ for i in lList:
     else:
         leval=np.delete(leval,[0,1])
 
-
-interpol = np.interp(leval,plotListX,plotListY)
-
 #Can make higher quality image slower if you precompute plotListX,plotListY and use np.interp
 #for each individual pixel
 interpol = np.interp(leval,plotListX,plotListY)

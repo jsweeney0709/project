@@ -13,11 +13,6 @@ X0 = [10, -1, np.pi]
 P = [1, -8]
 M, L = P
 
-def mydiff(X, t):
-    r, s, phi = X
-    f = [s, -L**2*(3*M-r)/(r**4), L/r**2]
-    return f
-
 stoptime = 20
 numpoints = 1500
 
@@ -61,14 +56,4 @@ plt.plot(a*np.cos(b),a*np.sin(b))
 plt.plot(a[-1]*np.cos(b[-1]),a[-1]*np.sin(b[-1]), 'rp')
 disk1=plt.Circle((0, 0), 2*P[0], color="k", fill=True)
 ax.add_artist(disk1)
-
-
-def integrate(a,b,f,P=0, m=100):
-    add=(f(a)+f(b))/6
-    for i in range(1,2*m):
-        if i%2==0:
-            add+=f(a+(i/(2*m))*(b-a))/3
-        else:
-            add+=2*f(a+(i/(2*m))*(b-a))/3
-    return P+add*(b-a)/m
     
