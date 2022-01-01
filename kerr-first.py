@@ -41,7 +41,7 @@ def mydiff(lamb, X, P):
     return f
 
 # ODE solver parameters
-stop = 400
+stop = 40
 
 #Define Isco
 Z1 = 1+((1-a**2)**(1/3))*((1+a)**(1/3)+(1-a)**(1/3))

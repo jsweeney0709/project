@@ -32,7 +32,9 @@ E = ((Delta*Sigma*Chi)**(1/2))/(Chi+2*r*a*L)
 Q = (L*np.tan(delta))**2-(E*a*np.sin(delta))**2
 k = (a*E)**2+L**2+Q
 
-Ptheta = v*np.cos(alpha)*np.sin(delta)*Sigma**(1/2)
+print(v*np.cos(alpha)*np.sin(delta)*(((r**2+a**2)**2-Delta*np.sin(theta)**2*a**2)/(r**2+a**2*np.cos(theta)**2))**(1/2)*np.sin(theta))
+
+Ptheta = v*np.cos(alpha)*np.cos(delta)*(x**2+y**2+z**2)**(1/2)
 PthetaDot = (np.sin(theta)*np.cos(theta)/Sigma)*((L/(np.sin(theta)**2))**2-(a*E)**2)
 Pphi = L
 PphiDot = 0
@@ -82,7 +84,7 @@ phi=sol.y[2]
 
 fig = plt.figure()
 ax = plt.gca(projection='3d') 
-ax.plot(r*np.cos(phi)*np.sin(theta),r*np.cos(theta)*np.sin(phi),r*np.cos(theta))
+ax.plot(np.sqrt(r**2+a**2)*np.cos(phi)*np.sin(theta),np.sqrt(r**2+a**2)*np.cos(theta)*np.sin(phi),r*np.cos(theta))
 ax.plot([-40],[0],[0])
 ax.plot([40],[0],[0])
 ax.plot([0],[-40],[0])

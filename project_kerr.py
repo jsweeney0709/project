@@ -4,7 +4,7 @@ Created on Wed Dec 15 11:37:03 2021
 
 @author: jswee
 """
-from numpy import zeros, sin, cos, tan, pi, sqrt
+from numpy import zeros, sin, cos, tan, pi, sqrt, mgrid, linspace
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 
@@ -63,7 +63,7 @@ stop =100
 numpoints = 400
 
 # Form time basis
-t = np.linspace(0,stop,numpoints)
+t = linspace(0,stop,numpoints)
 
 #Define Isco
 Z1 = 1+((1-a**2)**(1/3))*((1+a)**(1/3)+(1-a)**(1/3))
@@ -84,7 +84,7 @@ phi=sol.y[2]
 
 fig = plt.figure()
 ax = plt.gca(projection='3d') 
-ax.plot(r*np.cos(phi)*np.sin(theta),r*np.cos(theta)*np.sin(phi),r*np.cos(theta))
+ax.plot(r*cos(phi)*sin(theta),r*cos(theta)*sin(phi),r*cos(theta))
 ax.plot([-40],[0],[0])
 ax.plot([40],[0],[0])
 ax.plot([0],[-40],[0])
@@ -92,10 +92,10 @@ ax.plot([0],[40],[0])
 ax.plot([0],[0],[-40])
 ax.plot([0],[0],[40])
 
-u, v = np.mgrid[0:2*np.pi:50j, 0:np.pi:50j]
-x = Iscop*np.cos(u)*np.sin(v)
-y = Iscop*np.sin(u)*np.sin(v)
-z = Iscop*np.cos(v)
+u, v = mgrid[0:2*pi:50j, 0:pi:50j]
+x = Iscop*cos(u)*sin(v)
+y = Iscop*sin(u)*sin(v)
+z = Iscop*cos(v)
 # alpha controls opacity
 ax.plot_surface(x, y, z, color="black", alpha=0.8)
 ax.azim = 90
