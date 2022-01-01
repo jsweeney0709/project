@@ -69,10 +69,10 @@
 
 \chapter{Solving general relativistic equations of motion}
 \section{Deriving the equations of motion}
-	Equipped with the equations of motion derived from the geodesic equation determined by the metric we are given; we can visualise the path of light in such a metric by solving these equations numerically. We will start with the Schwarzschild metric, given in line notation by\cite{derivation_of_schwarzschild}: 
+	Equipped with the equations of motion derived from the geodesic equation determined by the metric we are given; we can visualise the path of light in such a metric by solving these equations numerically. We will start with the Schwarzschild metric, given in line notation by\cite{derivationSchwarzschild}: 
 
 
-	\[{ds^{2} = {(1-\frac {2m}{r})}^{-1}} {dr^2} + {r^2}({d\theta ^2} + {\sin ^2}{\theta}{d\varphi ^2}) -{(1-\frac {2m}{r})}{dt^2}\]
+	\[{ds^{2} = {\left(1-\frac {2m}{r}\right)}^{-1}} {dr^2} + {r^2}({d\theta ^2} + {\mbox{sin} ^2}{\theta}{d\varphi ^2}) -{\left(1-\frac {2m}{r}\right)}{dt^2}\]
 
 
 	Since the metric is spherically symmetric, we see that every path will always be contained in a plane intersecting the origin of the black hole. Therefore, without loss of generality we can take ${\theta}=\frac{\pi}{2}$ and observe from 'above’ the equatorial plane to see the path of such a light ray in the plane.
@@ -87,7 +87,7 @@
 
 	Where M is the mass of the black hole, L is a constant proportional to the angular momentum of the light ray, r is the distance from the centre of the black hole, and $\varphi$ is the angle from the positive x axis to the light ray.
 
-\section{Methods for solving the system}
+\section{Method for solving the system}
 	The simplest method of solving such an equation numerically is to split the equation into a coupled first order differential equation. Then use a numerical approximation to update r, $\dot{r}$ and $\varphi$ for each point in a time array, if you keep track of r and $\varphi$ for all points in the time array you can then plot the path. One thing to be careful about is that as soon as light is within r = 2M, solutions will not make any sense, so we cannot have an initial position in this region, and ideally while keeping track of r, cut the process off when r = 2M.
 
 	This method is both the simplest and most effective for solving second order ODE’s numerically, the only difference between a ‘bad’ and ‘good’ method would be the choice of numerical approximation method to solve the first order ODE’s.
@@ -134,23 +134,23 @@
 
 	As we are in polar coordinates, 
 
-			\[(x, y) = (rcos(\varphi), rsin(\phi)) \Rightarrow (\dot{x}, \dot{y}) = (\dot{r}cos(\varphi) - r\dot{\varphi}sin(\varphi), \dot{r}sin(\varphi) + r\dot{\varphi}cos(\varphi))\]
+			\[(x, y) = (r\mbox{cos}(\varphi), r\mbox{sin}(\phi)) \Rightarrow (\dot{x}, \dot{y}) = (\dot{r}\mbox{cos}(\varphi) - r\dot{\varphi}\mbox{sin}(\varphi), \dot{r}\mbox{sin}(\varphi) + r\dot{\varphi}\mbox{cos}(\varphi))\]
 	
 	Via basic geometry we see that 
 			
-			\[tan(\alpha) = \frac{\dot{y}(0)}{\dot{x}(0)} = \frac{\dot{r}(0)sin(\varphi(0)) + r(0)\dot{\varphi}(0)cos(\varphi(0)}{\dot{r}(0)cos(\varphi(0)) - r(0)\dot{\varphi}(0)sin(\varphi(0))}\]
+			\[\mbox{tan}(\alpha) = \frac{\dot{y}(0)}{\dot{x}(0)} = \frac{\dot{r}(0)\mbox{sin}(\varphi(0)) + r(0)\dot{\varphi}(0)\mbox{cos}(\varphi(0)}{\dot{r}(0)\mbox{cos}(\varphi(0)) - r(0)\dot{\varphi}(0)\mbox{sin}(\varphi(0))}\]
 
 	So we obtain that 
 
-			\[ L = \frac{r(0)\dot{r}(0)(cos(\varphi(0))tan(\alpha)-sin(\varphi(0))}{cos(\varphi(0))+sin(\varphi(0))tan(\alpha)}\]
+			\[ L = \frac{r(0)\dot{r}(0)(\mbox{cos}(\varphi(0))\mbox{tan}(\alpha)-\mbox{sin}(\varphi(0))}{\mbox{cos}(\varphi(0))+\mbox{sin}(\varphi(0))\mbox{tan}(\alpha)}\]
 
 \section{Finding $\alpha_{min}$}
 	
-	The method I used to find $\alpha_{min}$ is based on [8, p.2]: To find the minimum angle at which a light ray escapes the gravitational pull of the black hole, I send out a number of angles ranging from 0 to $\frac{\pi}{2}$, then, as soon as an angle does not lead to a termination of solve\_ivp, I repeat this process with much smaller intervals between the previous and current angle. This leads to an accurate $\alpha_{min}$.
+	To find the minimum angle at which a light ray escapes the gravitational pull of the black hole, I send out a number of angles ranging from 0 to $\frac{\pi}{2}$, then, as soon as an angle does not lead to a termination of solve\_ivp, I repeat this process with much smaller intervals between the previous and current angle. This leads to an accurate $\alpha_{min}$.
 
 \section{The relationship between $\alpha$ and $\alpha^{'}$}
 
-	By running this program across angles from $\alpha_{min}$ to 1.55 and plotting $\alpha$ on the x-axis with $\alpha^{'}$ on the y axis we find the relationship between $\alpha$ and $\alpha^{'}$. For $\alpha$ between -1.55 and -$\alpha_{min}$ we may take -f(-$\alpha$), where f is the function relating the two. Here we have covered -1.55 to 1.55 radii, nigh on a full field of view.
+	By running this program across angles from $\alpha_{min}$ to 1.55 and plotting $\alpha$ on the x-axis with $\alpha^{'}$ on the y axis we find the relationship between $\alpha$ and $\alpha^{'}$. For $\alpha$ between -1.55 and -$\alpha_{min}$ we may take -f(-$\alpha$), where f is the function relating the two. Here we have covered -1.55 to 1.55 radii, more than a full field of view.
 
 	Here,  $\alpha^{'}$ is the angle from the camera to the final position of the light ray (See Figure 3.2).
 
@@ -187,6 +187,54 @@
 \end{figure}
 
 	One issue that I had when first modelling these black holes is that I was not using an image covering $4\pi$ steradians, meaning any ray which leaves the area covered by the original image would lead to a black pixel. This leads to an irregularly shaped black hole (See Figure 3.4), if the image I used as a celestial sphere were circular, the black hole would seemingly look ordinary, as the irregularities would be smoothed out horizontally and vertically, but would be too large. My solution to this was to use a HDRI image as my celesial sphere and crop for a reasonable field of view (See figure 3.5).
+
+
+\chapter{Kerr black holes}
+\section{Properties of black holes}
+
+	In this section I will move on to more general black holes, specifically ones with non-zero spin, I will introduce the Kerr metric and take a look at the equations of motions derived from the geodesic equation of light in the Kerr metric.
+
+	Black holes are simultaniously one of the simplest and complicated objects known to exist in the universe: On the one hand, we can only theorise what happens as black holes age, or what happens beyond the event horizon - but on the other, black holes are defined entriely by only three properties. This is extraordinary, especially when considering their size and significance.
+
+	The three properties which define a black hole are mass, spin, and charge. Any two black holes with all three properties the same are essentially equivalent. Different metrics are given for describing black holes, these are usually to simplify things taking either spin or charge to be zero. For example the Schwarschild metric, which we have been working with, is the simplest such metric - taking both spin and charge to be zero. The Kerr metric takes only charge to be zero, and spin affects the curvature of spacetime rather substantially. A charged, non-spinning black hole is described by the Reissner–Nordström metric, and finally, the most general metric describing a black hole is the Kerr-Newman metric - taking mass, spin and charge to all be non-zero. Of course one could use the equations of motion implied by the hamiltonian of the geodesic equation generated by the Kerr-Newman metric and take spin and/or charge to be zero rather than using other metrics - but this requires much more work.
+
+\section{The Kerr metric}
+
+	The Kerr metric of a mass M rotating with angular momentum per unit mass a = $\frac{J}{M}$ is given by \cite{raquepas2017topics}:
+
+	\[{ds^{2} = -\frac{\Delta}{\Sigma}(dt-a\mbox{sin}^2(\theta)d\varphi)^2+\frac{\mbox{sin}^2(\theta)}{\Sigma}((r^2+a^2)d\varphi-adt)^2)+\frac{\Sigma}{\Delta}dr^2+\Sigma d\theta^2}\]
+
+	With:
+	
+	\[\Delta(r) := r^2 - 2Mr + a^2\]
+	\[\Sigma(r, \theta) := r^2 +(a\mbox{cos}(\theta))^2\]
+
+	This is using what is called Boyer-Lindquist coordinates, which are similar to spherical polar coordinates but 'stretched'. They are related to real Euclidean space by:
+
+	\[t=t\]
+	\[x = \sqrt{r^2+a^2}\mbox{sin}(\theta)\mbox{cos}(\varphi)\]
+	\[y = \sqrt{r^2+a^2}\mbox{sin}(\theta)\mbox{sin}(\varphi)\]
+	\[z = rcos(\theta)\]
+
+	Using the Hamiltonian formalisation and via Noether's theorem and Hamilton-Jacobi theorem we find four constants of motion from the geodesic equation \cite{}:
+
+	\[\mu = \mbox{mass of particle} = 0\mbox{ for us}\]
+	\[E = -p_t\]
+	\[L_z = p_{\varphi}\]
+	\[Q = {p_{\theta}}^2+\mbox{cos}^2(\theta)\left(a^2(\mu^2-E^2)+\left(\frac{L_z}{\mbox{sin}(\theta)}\right)^2\right)\]
+
+	Then using these constants we can write the equations of motion as:
+
+	\[\dot{r} = \pm\frac{\sqrt{R(r)}}{\Sigma}\]
+	\[\dot{\theta} = \pm\frac{\Theta(\theta)}{\Sigma}\]
+	\[\dot{\varphi} = \frac{1}{\Sigma}\left(\frac{L_z}{\mbox{sin}^2(\theta)}-aE+\frac{a}{\Delta}P(r)\right)\]
+	\[\dot{t} = \frac{1}{\Sigma}\left(-a(aEsin^2(\theta)-L_z)+\frac{r^2+a^2}{\Delta}P(r)\right)\]
+
+	With:
+
+	\[\Theta(\theta) = Q - \mbox{cos}^2(\theta)\left(\frac{{L_z}^2}{\mbox{sin}^2(\theta)}-a^2E^2\right)\]
+	\[P(r) = E(r^2+a^2)-aL_z\]
+	\[R(r) = P(r)^2-\Delta\left((L_z-aE)^2+Q)\right)\]
 
 \appendix
 %\include{appendix1}
