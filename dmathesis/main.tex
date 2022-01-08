@@ -69,23 +69,47 @@
 
 \chapter{Solving general relativistic equations of motion}
 \section{Deriving the equations of motion}
+	
+	In this section, usually instead of the time variable t, a more general variable such as $\lambda$ is used, but as we are not interested in modelling realistic animations, taking t as our variable does not affect the end result. Much of the derivations in this subchapter are heavily influenced by \cite{schutz2009first}.
+	
 	Equipped with the equations of motion derived from the geodesic equation determined by the metric we are given; we can visualise the path of light in such a metric by solving these equations numerically. We will start with the Schwarzschild metric, given in line notation by\cite{derivationSchwarzschild}: 
 
 
-	\[{ds^{2} = {\left(1-\frac {2m}{r}\right)}^{-1}} {dr^2} + {r^2}({d\theta ^2} + {\mbox{sin} ^2}{\theta}{d\varphi ^2}) -{\left(1-\frac {2m}{r}\right)}{dt^2}\]
+	\[{ds^{2} = {\left(1-\frac {2m}{r}\right)}^{-1}} {dr^2} + {r^2}({d\theta ^2} + {\mbox{Sin} ^2}{\theta}{d\varphi ^2}) -{\left(1-\frac {2m}{r}\right)}{dt^2}\]
 
 
 	Since the metric is spherically symmetric, we see that every path will always be contained in a plane intersecting the origin of the black hole. Therefore, without loss of generality we can take ${\theta}=\frac{\pi}{2}$ and observe from 'above’ the equatorial plane to see the path of such a light ray in the plane.
 
-	From the above equation, one can derive the equations of motion of a null geodesic in the Schwarzschild metric:
+	Observing that the Schwarzschild metric is time independant implies that the energy of a photon in the metric will be constant (equal to its value at t=0). Similarly, independance from the variable $\varphi$ leads us to see that the $\varphi$ component of the angular momentum of a photon in the Schwarszchild metric remains constant. We call these contants E (= -$p_0$) and L (= $p_\varphi$) respectively. Since we take ${\theta}$ to be constant, $p_\theta$ = 0 as the angular momentum in the $\theta$ plane is proportional to $\frac{d\theta}{dt} = 0$.
 
+	For the other components of the photons momentum:
 
-	\[\ddot{r}=-\frac{L^2(3M-r)}{r^4}\]
+	\[p^0 = g_{00}p_0 = \frac{rE}{r-2M} \]
+	\[p^r = \dot{r}\]
+	\[p^\varphi = g^{\varphi\varphi}p_\varphi = \dot{\varphi} = \frac{L}{r^2}\]
+
+	Using the equation $p \cdot p$ = 0 we see that
+
+	\[-\frac{rE^2}{r-2m}+\frac{r\dot{r}^2}{r-2M}+\frac{L^2}{r^2}=0\]
+
+	This equation can be solved, leading to the equation
+
+	\[\dot{r}^2 = E^2-\frac{L^2(r-2M)}{r^3} = E^2 + V^2\]
+
+	Here we let let V = V(r) for ease of notation.
+
+	Then, taking the time derivative of both sides of this equation,
+
+	\[2\dot{r}\ddot{r} = -\frac{d}{dr}(V^2)\dot{r}\]
+
+	Calculating $\frac{d}{dr}(V^2)$ shows that the equations of motion of a photon in the Schwarzschild metric are governed by:
+
+	\[\ddot{r} = -\frac{1}{2}\frac{d}{dr}(V^2) = -\frac{L^2(3M-r)}{r^4}\]
 
 	\[\dot{\varphi}=\frac{L}{r^2}\]
 
 
-	Where M is the mass of the black hole, L is a constant proportional to the angular momentum of the light ray, r is the distance from the centre of the black hole, and $\varphi$ is the angle from the positive x axis to the light ray.
+	Where M is the mass of the black hole, L is a constant equal to the angular momentum of the light ray, r is the distance from the centre of the black hole, and $\varphi$ is the angle from the positive x axis to the light ray.
 
 \section{Method for solving the system}
 	The simplest method of solving such an equation numerically is to split the equation into a coupled first order differential equation. Then use a numerical approximation to update r, $\dot{r}$ and $\varphi$ for each point in a time array, if you keep track of r and $\varphi$ for all points in the time array you can then plot the path. One thing to be careful about is that as soon as light is within r = 2M, solutions will not make any sense, so we cannot have an initial position in this region, and ideally while keeping track of r, cut the process off when r = 2M.
@@ -134,15 +158,15 @@
 
 	As we are in polar coordinates, 
 
-			\[(x, y) = (r\mbox{cos}(\varphi), r\mbox{sin}(\phi)) \Rightarrow (\dot{x}, \dot{y}) = (\dot{r}\mbox{cos}(\varphi) - r\dot{\varphi}\mbox{sin}(\varphi), \dot{r}\mbox{sin}(\varphi) + r\dot{\varphi}\mbox{cos}(\varphi))\]
+			\[(x, y) = (r\mbox{Cos}(\varphi), r\mbox{Sin}(\phi)) \Rightarrow (\dot{x}, \dot{y}) = (\dot{r}\mbox{Cos}(\varphi) - r\dot{\varphi}\mbox{Sin}(\varphi), \dot{r}\mbox{Sin}(\varphi) + r\dot{\varphi}\mbox{Cos}(\varphi))\]
 	
 	Via basic geometry we see that 
 			
-			\[\mbox{tan}(\alpha) = \frac{\dot{y}(0)}{\dot{x}(0)} = \frac{\dot{r}(0)\mbox{sin}(\varphi(0)) + r(0)\dot{\varphi}(0)\mbox{cos}(\varphi(0)}{\dot{r}(0)\mbox{cos}(\varphi(0)) - r(0)\dot{\varphi}(0)\mbox{sin}(\varphi(0))}\]
+			\[\mbox{tan}(\alpha) = \frac{\dot{y}(0)}{\dot{x}(0)} = \frac{\dot{r}(0)\mbox{Sin}(\varphi(0)) + r(0)\dot{\varphi}(0)\mbox{Cos}(\varphi(0)}{\dot{r}(0)\mbox{cos}(\varphi(0)) - r(0)\dot{\varphi}(0)\mbox{Sin}(\varphi(0))}\]
 
 	So we obtain that 
 
-			\[ L = \frac{r(0)\dot{r}(0)(\mbox{cos}(\varphi(0))\mbox{tan}(\alpha)-\mbox{sin}(\varphi(0))}{\mbox{cos}(\varphi(0))+\mbox{sin}(\varphi(0))\mbox{tan}(\alpha)}\]
+			\[ L = \frac{r(0)\dot{r}(0)(\mbox{Cos}(\varphi(0))\mbox{tan}(\alpha)-\mbox{Sin}(\varphi(0))}{\mbox{Cos}(\varphi(0))+\mbox{Sin}(\varphi(0))\mbox{Tan}(\alpha)}\]
 
 \section{Finding $\alpha_{min}$}
 	
@@ -202,39 +226,41 @@
 
 	The Kerr metric of a mass M rotating with angular momentum per unit mass a = $\frac{J}{M}$ is given by \cite{raquepas2017topics}:
 
-	\[{ds^{2} = -\frac{\Delta}{\Sigma}(dt-a\mbox{sin}^2(\theta)d\varphi)^2+\frac{\mbox{sin}^2(\theta)}{\Sigma}((r^2+a^2)d\varphi-adt)^2)+\frac{\Sigma}{\Delta}dr^2+\Sigma d\theta^2}\]
+	\[{ds^{2} = -\frac{\Delta}{\Sigma}(dt-a\mbox{Sin}^2(\theta)d\varphi)^2+\frac{\mbox{sin}^2(\theta)}{\Sigma}((r^2+a^2)d\varphi-adt)^2)+\frac{\Sigma}{\Delta}dr^2+\Sigma d\theta^2}\]
 
 	With:
 	
 	\[\Delta(r) := r^2 - 2Mr + a^2\]
-	\[\Sigma(r, \theta) := r^2 +(a\mbox{cos}(\theta))^2\]
+	\[\Sigma(r, \theta) := r^2 +(a\mbox{Cos}(\theta))^2\]
 
 	This is using what is called Boyer-Lindquist coordinates, which are similar to spherical polar coordinates but 'stretched'. They are related to real Euclidean space by:
 
 	\[t=t\]
-	\[x = \sqrt{r^2+a^2}\mbox{sin}(\theta)\mbox{cos}(\varphi)\]
-	\[y = \sqrt{r^2+a^2}\mbox{sin}(\theta)\mbox{sin}(\varphi)\]
+	\[x = \sqrt{r^2+a^2}\mbox{Sin}(\theta)\mbox{Cos}(\varphi)\]
+	\[y = \sqrt{r^2+a^2}\mbox{Sin}(\theta)\mbox{Sin}(\varphi)\]
 	\[z = rcos(\theta)\]
 
-	Using the Hamiltonian formalisation and via Noether's theorem and Hamilton-Jacobi theorem we find four constants of motion from the geodesic equation \cite{}:
+	There are many formulations of the equations of motion of a particle/photon in the Kerr metric, some messier than others. Unfortunately often for the sake of readable and understandable code, we must rely upon a less neat version. Similarly to how we derived the equations in section 2.1, the following is heavily based upon work by another, in this case Simon Tyran, a physicist from Vienna who has contributed heavily to the Kerr metric wikipedia page. The specific work I am basing it upon is his English translated Kerr metric page \cite{yukterezKerr}:
 
-	\[\mu = \mbox{mass of particle} = 0\mbox{ for us}\]
-	\[E = -p_t\]
-	\[L_z = p_{\varphi}\]
-	\[Q = {p_{\theta}}^2+\mbox{cos}^2(\theta)\left(a^2(\mu^2-E^2)+\left(\frac{L_z}{\mbox{sin}(\theta)}\right)^2\right)\]
+	Given initial position $(r, \theta, \varphi)$, initial velocity v, spin parameter a, launch angle $\alpha$ and inclination angle $\delta$ one may find that:
+	
+	\[v_r = v\mbox{Sin}(\alpha), v_\varphi = v\mbox{Cos}(\alpha)\mbox{sSn}(\delta), v_\theta = v\mbox{Cos}(\alpha)\mbox{Cos}(\delta)\]
 
-	Then using these constants we can write the equations of motion as:
+	For ease of notation, along with $\Sigma$ and $\Delta$, I define $\chi$ as follows:
 
-	\[\dot{r} = \pm\frac{\sqrt{R(r)}}{\Sigma}\]
-	\[\dot{\theta} = \pm\frac{\Theta(\theta)}{\Sigma}\]
-	\[\dot{\varphi} = \frac{1}{\Sigma}\left(\frac{L_z}{\mbox{sin}^2(\theta)}-aE+\frac{a}{\Delta}P(r)\right)\]
-	\[\dot{t} = \frac{1}{\Sigma}\left(-a(aEsin^2(\theta)-L_z)+\frac{r^2+a^2}{\Delta}P(r)\right)\]
+	\[\chi = (r^2+a^2)^2-a^2\mbox{Sin}^2(\theta)\Delta\]
 
-	With:
+	Then:
 
-	\[\Theta(\theta) = Q - \mbox{cos}^2(\theta)\left(\frac{{L_z}^2}{\mbox{sin}^2(\theta)}-a^2E^2\right)\]
-	\[P(r) = E(r^2+a^2)-aL_z\]
-	\[R(r) = P(r)^2-\Delta\left((L_z-aE)^2+Q)\right)\]
+	\[\omega = \frac{2ar}{\chi}\]
+
+	\[L_{z} (\mbox{3d equivalent of the Schwarzschild's L}) = v_{\varphi}\mbox{Sin}(\theta)\sqrt{\frac{\chi}{\Sigma}}, E = L_{z}\omega\]
+	\[p_{\varphi} = L_{z}, p_{r} = v_{r}\sqrt{\frac{\Sigma}{\Delta}}, p_{\theta} = v_{t}\sqrt{x^2+y^2+z^2}\]
+	\[Q = {p_{\theta}}^2+\mbox{Cos}^2(\theta)\left(\frac{{L_{z}}^2}{\mbox{Sin}^2(\theta)}-a^2E^2\right), k = Q+{L_{z}}^2+a^2E^2\]
+	\[\dot{r} = p_r\frac{\Delta}{\Sigma}, \dot{\theta} = \frac{p_\theta}{\Sigma}\]
+	\[\dot{\varphi} = \frac{2arE+L_{z}\mbox{Cosec}^2(\theta)(\Sigma-2t)}{\Sigma\Delta}\]
+	\[\dot{p_{\varphi}} = 0, \dot{p_{\theta}} = \frac{\mbox{Sin}(\theta)\mbox{Cos}(\theta)(L^2\mbox{Cosec}^4(\theta)-a^2E^2)}{\Sigma\Delta}\]
+	\[\dot{p_{r}} = \frac{2rE^2(r^2+a^2)-k(r-1)-2aEL_{z}}{\Sigma\Delta}-\frac{2{p_{r}}^2(r-1)}{\Sigma}\]
 
 \appendix
 %\include{appendix1}
