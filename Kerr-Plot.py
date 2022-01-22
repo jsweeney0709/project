@@ -5,26 +5,45 @@ Created on Sat Jan  1 15:12:39 2022
 @author: jswee
 """
 
-from numpy import pi, sin, cos, sqrt, mgrid
+from numpy import pi, sin, cos, sqrt, mgrid, arctan, arccos
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 
-r, theta, phi = [100, pi/2, pi]
-v = 1
+r, theta, phi = [100, pi/2, pi/2]
+v = 1.001
 a = 1
-alpha = 0.10737865515199488
-beta = 1.564660403643354
 
 #-46.83744492589279 -3.098841465049254 -8.74478540492632
 #1059 2
 #0.10737865515199488 1.564660403643354
 #-0.02106273580687733 3.201074567558693
 
+x=272
+y=0
+height=1024
+
+alpha = sqrt(y**2+x**2)*pi/height
+if x>0:
+    beta=arctan(y/x)
+elif x<0:
+    beta=pi+arctan(y/x)
+if x==0:
+    if y>0:
+        beta=pi/2
+    else:
+        beta=3*pi/2
+print(arccos(-1))
+
+alpha = pi
+beta = 0
+
 launch = 3*pi/2 - alpha
 if alpha<0:
     incl = -beta - pi/2
 else:
     incl = beta - pi/2
+    
+
 x = sqrt(r**2+a**2)*sin(theta)*cos(phi)
 y = sqrt(r**2+a**2)*sin(theta)*sin(phi)
 z = r*cos(theta)
@@ -55,18 +74,6 @@ def event(tau, X):
     return abs(X[1]) - abs(1 + sqrt(1 - (a*cos(X[2]))**2))
 event.terminal = True
 
-def eventErgo(tau, X):
-    if L>omega(X[1], X[2]):
-        angtest = 0
-    else:
-        angtest = 1
-    if abs(X[1]) < abs(1 + sqrt(1 - (a*cos(X[2]))**2)):
-        ergotest = 0
-    else:
-        ergotest = 1
-    return angtest + ergotest
-eventErgo.terminal = True
-
 def mydiff(tau, X=varlist):
     t, r, theta, phi, pr, ptheta = X
     td = E + (2*r*(r**2 + a**2)*E - 2*a*r*L)/(Sigma(r, theta)*Delta(r))
@@ -78,9 +85,8 @@ def mydiff(tau, X=varlist):
     return [td, rd, thetad, phid, prd, pthetad]
 
 
-sol = solve_ivp(mydiff, [0,stop], varlist, events=[event, eventErgo])
+sol = solve_ivp(mydiff, [0,stop], varlist, events=[event])
 
-print(sol.status)
 
 r = sol.y[1]
 theta=sol.y[2]
@@ -108,10 +114,10 @@ x = sqrt(rr**2 + a**2)*cos(u)*sin(v)
 y = sqrt(rr**2 + a**2)*sin(u)*sin(v)
 z = rr*cos(v)
 # alpha controls opacity
-ax.plot_surface(x, y, z, color="black", alpha=0.1)
+ax.plot_surface(x, y, z, color="black", alpha=1)
 
-ax.azim = 90
-ax.elev = 0
+ax.azim = 0
+ax.elev = 90
 #ax.set_axis_off()
 plt.show()
 
