@@ -3,7 +3,7 @@
 \usepackage{cite}
 \begin{document}
 \title{Null geodesics}
-\subtitle{Modelling light in the Schwartzschild metric}
+\subtitle{Modelling light in the Kerr metric}
 \author{Joseph A Sweeney}
 \researchgroup{Mathematics}
 \pagenumbering{roman}
@@ -17,9 +17,7 @@
 
 \begin{declaration*}
 %
-	The work in this thesis is based on research carried out in the Department of
-	Mathematical Sciences at Durham University. No part of this thesis has been
-	submitted elsewhere for any degree or qualification.
+	This piece of work is a result of my own work except where it forms an assessment based on group project work. In the case of a group project, the work has been prepared in collaboration with other members of the group. Material from the work of others not involved in the project has been acknowledged and quotations and paraphrases suitably indicated.
 %
 \end{declaration*}
 
@@ -40,7 +38,7 @@
 	and development following Christopher Nolan’s 2014 blockbuster Interstellar\cite{Interstellar}, and the imaging of the supermassive 
 	black hole at the centre of M87 by the Event Horizon Telescope in 2019\cite{event2019first}. Producing high quality images 
 	and videos of black holes and wormholes can be very computationally costly, so ingenious ways of gaining 
-	efficacy must often be used. My aim is to explore these methods and tricks to present practical approaches 
+	efficacy are often used. My aim is to explore these methods and tricks to present practical approaches 
 	to modelling the Schwarzschild metric and Kerr metric. After this I will explore accretion discs and gravitational redshift to create as realistic a model as possible.
 
 \end{introduction}
@@ -48,7 +46,7 @@
 \chapter{Introduction to General Relativity}
 	Albert Einstein’s theory of General Relativity is a pivotal achievement in the scientific community, here, I will attempt to briefly summarise some key components and notation for ease of readers in later sections.
 
-	In his theory of General Relativity, Einstein formalised gravity not as a force - as it is thought of in Newtonian physics - but as the curvature of spacetime. Spacetime is the 4-dimentional plane we exist in, one dimension representing time, and three space. The path of an object acted upon solely by gravity can be thought of as moving along curved spacetime, with the path being a straight line if the effects of gravity are non-existent. Such a path through curved spacetime is called a geodesic, and equations of motion in General Relativity are governed by constants derived from geodesic equations – which in turn are derived from the metric in which the object finds itself. A null-geodesic, or light-like geodesic, is a path describing the motion of a massless object: In this paper, a null-geodesic will always be describing the path of a light particle in a metric. Geodesic equations can be thought of as a generalisation of Newton's second law of motion, taking into account the curvature of the spacetime one chooses. I.e instead of F = 0 $\Rightarrow$ a = 0, we have that F = 0 implies that acceleration is sufficient to keep the motion in a straight line when considered in ordinary space.
+	In his theory of General Relativity, Einstein formalised gravity not as a force - as it is thought of in Newtonian physics - but as the curvature of spacetime. Spacetime is the 4-dimentional plane we exist in, one dimension representing time, and three space. The path of an object acted upon solely by gravity can be thought of as moving along curved spacetime, with the path being a straight line if the effects of gravity are non-existent. Such a path through curved spacetime is called a geodesic, and equations of motion in General Relativity are governed by constants derived from geodesic equations – which in turn are derived from the metric in which the object finds itself. A null-geodesic, or light-like geodesic, is a path describing the motion of a massless object: In this paper, a null-geodesic will always be describing the path of a photon in a metric. Geodesic equations can be thought of as a generalisation of Newton's second law of motion, taking into account the curvature of the spacetime one chooses. I.e instead of F = 0 $\Rightarrow$ a = 0, we have that F = 0 implies that acceleration is sufficient to keep the motion in a straight line when considered in Euclidean space.
 
 	As is common in papers studying light and the astrological, I will be using natural units: That is, I will be taking c = G = 1, this results in non-SI units, but conversion is possible and generally simple. A distance of 1 will correspond to $1$(s) x c($ms^{-1}$) = the distance travelled by light in a vaccum in one second.
 
@@ -61,7 +59,7 @@
 
 	Christoffel symbols are incredibly important in the study of General Relativity, relating directly to the Riemann tensor, Metric tensor and other key concepts. Below I will give a sense as to what they represent, but will not dive any further, standing on the shoulders of giants by relying on equations derived and examined over many years.
 
-	The Christoffel symbols are related to the coefficients in the line metric, and can be quite messy as they consider all relations between variables. Below is the general form of the Christoffel symbol using Einsteins summation convention\cite{albert1916foundation}:
+	The Christoffel symbols are related to the coefficients in the line metric, and can be quite messy as they consider all relations between variables. Below is the general form of the Christoffel symbol using Einsteins summation convention\cite[pg. 13-14]{albert1916foundation}:
 	
 	\[{\Gamma^\lambda}_{\mu\nu} = \frac{1}{2}g^{\lambda{l}}(\partial_{\nu}g_{\mu{l}} + \partial_{\mu}g_{l\nu} + \partial_{l}g_{\mu\nu})\]
 	
@@ -77,7 +75,7 @@
 	We will start with the Schwarzschild metric, given in line notation by\cite{derivationSchwarzschild}: 
 
 
-	\[{ds^{2} = {\left(1-\frac {2m}{r}\right)}^{-1}} {dr^2} + {r^2}({d\theta ^2} + {\mbox{Sin} ^2}{\theta}{d\varphi ^2}) -{\left(1-\frac {2m}{r}\right)}{dt^2}\]
+	\[{ds^{2} = {\left(1-\frac {2M}{r}\right)}^{-1}} {dr^2} + {r^2}({d\theta ^2} + {\mbox{Sin} ^2}{\theta}{d\varphi ^2}) -{\left(1-\frac {2M}{r}\right)}{dt^2}\]
 
 
 	Since the metric is spherically symmetric, we see that every path will always be contained in a plane intersecting the origin of the black hole. Therefore, without loss of generality we can take ${\theta}=\frac{\pi}{2}$ and observe from 'above’ the equatorial plane to see the path of such a light ray in the plane.
@@ -112,7 +110,7 @@
 
 	Where M is the mass of the black hole, L is a constant equal to the angular momentum of the light ray, r is the distance from the centre of the black hole, and $\varphi$ is the angle from the positive x axis to the light ray.
 
-	In this section, usually instead of the time variable t, a more general variable such as $\lambda$ is used, but as we are not interested in modelling realistic animations, taking t as our variable does not affect the end result. The derivations in this subchapter were based on \cite{schutz2009first}.
+	In this section, usually instead of the time variable t, a more general variable such as $\lambda$ is used, but as we are not interested in modelling realistic animations, taking t as our variable does not affect the end result. The derivations in this subchapter were based on \cite[pg. 283-285]{schutz2009first}.
 
 \section{Method for solving the system}
 	The simplest method of solving such an equation numerically is to split the equation into a coupled first order differential equation. Then use a numerical approximation to update r, $\dot{r}$ and $\varphi$ for each point in a time array, if you keep track of r and $\varphi$ for all points in the time array you can then plot the path. One thing to be careful about is that as soon as light is within r = 2M, solutions will not make any sense, so we cannot have an initial position in this region, and ideally while keeping track of r, cut the process off when r = 2M.
@@ -203,7 +201,7 @@
 
 \section{The importance of a proper celestial sphere}
 
-	One issue that I had when first modelling these black holes is that I was not using an image covering $4\pi$ steradians (2d equivalent of radians, $4\pi$ being a full field of view), meaning any ray which leaves the area covered by the original image would lead to a black pixel. This leads to an irregularly shaped black hole (See Figure 3.3), if the image I used as a celestial sphere was circular, the black hole would seemingly look ordinary, as the irregularities would be smoothed out horizontally and vertically, but would be too large. 
+	One issue that I had when first modelling these black holes is that I was not using an image covering $4\pi$ steradians (2d equivalent of radians, $4\pi$ covering a full sphere), meaning any ray which leaves the area covered by the original image would lead to a black pixel. This leads to an irregularly shaped black hole (See Figure 3.3), if the image I used as a celestial sphere was circular, the black hole would seemingly look ordinary, as the irregularities would be smoothed out horizontally and vertically, but would be too large. 
 
 	My solution to this was to use a HDRI image, which indeed covers $4\pi$ steradians, and keeping models in this form - this is commonly done, notably in \cite{james2015gravitational}. It is simple to convert a HDRI image back to an ordinary POV image, but you are then limited to a small section of the information which can be seen in the original HDRI image. For example if one wanted to create an animation of a camera spinning in place in frozen time, one could rely solely upon one of these HDRI images.
 
@@ -240,9 +238,11 @@
 	\[y = \sqrt{r^2+a^2}\mbox{Sin}(\theta)\mbox{Sin}(\varphi)\]
 	\[z = r\mbox{Cos}(\theta)\]
 
+	Take note that as is the case in many coordinate systems, there are areas which are ill defined in Boyer-Lindquist coordinates - namely when $\theta = 0\mbox{ or }\pi$, which corresponds to the z axis in three dimentional Euclidean space. A proper solution to this is to shift to a rotated Boyer-Lindquist system for any photon path which passes through I'll defined points. By 'stitching' these two coordinate systems together we avoid any problems. A quicker fix would be to discount any photon paths which pass through this line as there are very few of them.
+
 \section{Frame dragging}
 
-	To have a coherent observation of a rotating body, one usually alters the metric to have a co-rotating framework. This is because of the Lense-Thirring effect, or rotational frame-dragging. 
+	To have a coherent observation of a rotating body, one usually alters the metric to have a co-rotating framework. This is because of the Lense-Thirring effect, or rotational frame-dragging. In essense the Lense-Thirring effect is an effect caused by a rotating body which is rotating at such a speed that it is 'dragging' the matter around it and giving it angular momentum. The Lense-Thirring effect is the effect that has on an observer - or object we are interested in caused by this. This means that unlike a non-rotating metric, it is not possible to stay stationary, regardless of momenta. When we change our frame of reference to account for this effect, we are given a more suitable reference frame.
 
 	The Kerr metric is given most generally by:
 
@@ -284,7 +284,7 @@
 
 	Light-like curves can describe the paths of light-like objects inside a metric , whereas space-like curves can describe physical parameters, for example the length of an object.
 
-	However if a photon does in fact enter this ergosphere it has not yet passed the black holes event horizon, and so it is possible for it to escape. Furthermore as the photon enters the ergosphere it is forced to rotate and gain more energy. This energy is aquired from the black holes angular momentum, and so theoretically a Kerr black hole could become a Schwarzschild black hole via losing its angular momentum to escaping photons/particles. This process is called the Penrose-process, and is named after the British mathematician Roger Penrose who proposed it originally.
+	However if a photon does in fact enter this ergosphere it has not yet passed the black holes event horizon, and so it is possible for it to escape. Furthermore as the photon enters the ergosphere it is forced to co-rotate and gain more energy. This energy is aquired from the black holes angular momentum, and so theoretically a Kerr black hole could become a Schwarzschild black hole via losing its angular momentum to escaping photons/particles. This process is called the Penrose-process, and is named after the British mathematician Roger Penrose who proposed it originally.
 
 \chapter{Modelling photon paths in the Kerr metric}
 
@@ -351,6 +351,6 @@
 %\include{appendix2}
 
 %\nocite{}
-\bibliographystyle{plain}
+\bibliographystyle{ieeetr}
 \bibliography{bibliography}{}
 \end{document}
