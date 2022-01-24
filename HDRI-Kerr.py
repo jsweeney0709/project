@@ -10,8 +10,8 @@ from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 from PIL import Image
 
-img=Image.open("C:/Users/jswee/OneDrive/Desktop/Project/free_star_sky_hdri.jpg")
-imageCopy=Image.open("C:/Users/jswee/OneDrive/Desktop/Project/free_star_sky_hdri.jpg")
+img=Image.open("C:/Users/jswee/OneDrive/Desktop/Project/milkyway.jpg")
+imageCopy=Image.open("C:/Users/jswee/OneDrive/Desktop/Project/milkyway.jpg")
 
 width=img.size[0]
 height=img.size[1]
@@ -19,16 +19,15 @@ halfWidth=int(width/2)
 halfHeight=int(height/2)
 celestialr = 200
 
-r, theta, phi = [100, pi/2, 0]
-v = 1.001
-a = 0.99
+r, theta, phi = [10, pi/2, 0]
+v = 1
+a = 1
 x0 = sqrt(r**2+a**2)*sin(theta)*cos(phi)
 y0 = sqrt(r**2+a**2)*sin(theta)*sin(phi)
 z0 = r*cos(theta)
 counter1=0
 counter2=0
 for j in range(height):
-    #for i in range(-int(((halfHeight)**2-(j-halfHeight)**2)**(1/2)),int(((height/2)**2-(j-halfHeight)**2)**(1/2))):
     for i in range(width):
         counter1+=1
         if counter1%int(height*width/100)==0:
@@ -37,16 +36,34 @@ for j in range(height):
             print(counter2)
         x=(i-halfWidth)*pi/height
         y=(halfHeight-j)*pi/height
-        alpha = arccos(cos(y)*cos(x))
-        if x>0:
-            beta=arctan(y/x)
-        elif x<0:
-            beta=pi+arctan(y/x)
+        
+
+        if x<0:
+            alpha = arccos(cos(y)*cos(x))
+        else:
+            alpha = -arccos(cos(y)*cos(x))
+            
         if x==0:
             if y>0:
                 beta=pi/2
             else:
+                beta=-pi/2
+        elif y==pi/2 or y==-pi/2:
+            alpha=y
+            beta=0
+        #elif y==0:
+         #   alpha=x
+          #  beta=0
+        elif x==pi or x==-pi:
+            if y>0:
+                alpha = pi-y
+                beta=pi/2
+            else:
+                alpha = pi+y
                 beta=3*pi/2
+        else:
+            beta = arctan(sin(y)/(sin(x)*cos(y)))
+            
         launch = 3*pi/2 - alpha
         incl = beta - pi/2
         vr = v*sin(launch)
@@ -104,7 +121,7 @@ for j in range(height):
                 endtheta = pi + arctan((x1-x0)/(y1-y0))
                 endphi = arctan((z1-z0)/(sqrt((x1-x0)**2+(y1-y0)**2)))
             endpixx = halfHeight+int(endtheta*height/pi)
-            endpixy = halfHeight-int(endphi*height/pi)
+            endpixy = halfHeight+int(endphi*height/pi)
             if endpixx<0:
                 endpixx=0
             if endpixx>width-1:
@@ -123,7 +140,7 @@ figure, ax = plt.subplots()
 ax.axis("equal")
 ax.get_xaxis().set_visible(False)
 ax.get_yaxis().set_visible(False)
-img.save("C:/Users/jswee/OneDrive/Desktop/Project/free_star_sky_hdri-kerr-full-new.jpg")        
+img.save("C:/Users/jswee/OneDrive/Desktop/Project/milkyway-kerr-full-new.jpg")        
 
 plt.imshow(img)
 plt.show()
